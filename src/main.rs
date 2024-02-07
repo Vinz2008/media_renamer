@@ -101,3 +101,6 @@ fn main() {
         fs::rename(pairs.0, pairs.1).unwrap();
     } 
 }
+
+#[cfg(test)]
+mod tests;
