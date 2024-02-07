@@ -2,6 +2,11 @@ use std::env;
 use std::fs;
 use std::vec;
 
+// TODO : add remover of pattern
+// example : filename is "series - 01 - ac3"
+// media_renamer --remover ac3 .
+// will output the filename without ac3 : "series - 01 - "
+
 fn rename_file(filename : &String, season_nb : i32) -> String {
     let mut new_filename = filename.clone();
     let mut pos = 0;
