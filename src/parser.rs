@@ -6,10 +6,7 @@ pub fn rename_file(filename : &String, season_nb : i32) -> String {
     // TODO : add a last char variable to find if E is before the number so it will work even with big number that could be years
     // let mut last_char;
     while pos + 1 < filename.len() {
-        //println!("{}", c.unwrap());
-
         if c.is_ascii_digit(){
-            //println!("{}", c);
             let number_pos = pos;
             let mut number : String = "".to_string();
             while c.is_ascii_digit() && pos + 1 < filename.len(){
