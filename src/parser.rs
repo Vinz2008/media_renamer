@@ -67,14 +67,16 @@ pub fn dash_remover(filename : &String) -> String {
     // TODO : add a last char variable to find if E is before the number so it will work even with big number that could be years
     // let mut last_char;
     while pos + 1 < filename.len() {
-        if c == 'S' {
+        if c == 'S'{
             c = iter.next().unwrap();
             pos = pos + 1;
+            if c.is_ascii_digit() {
             while c.is_ascii_digit() && pos + 1 < filename.len(){
                 c = iter.next().unwrap();
                 pos = pos + 1;
             }
             let pos_start = pos;
+            println!("pos_start : {}", pos_start);
             while !c.is_ascii_digit() && pos + 1 < filename.len(){
                 c = iter.next().unwrap();
                 pos = pos + 1;
@@ -88,6 +90,7 @@ pub fn dash_remover(filename : &String) -> String {
                 println!("new_filename in loop : {}", new_filename);
             }
             new_filename.insert(pos_start, 'E');
+            }
             
         } else {
             c = iter.next().unwrap();

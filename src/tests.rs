@@ -20,6 +20,12 @@ mod tests {
         let renamed_filename = crate::dash_remover(&filename);
         assert!(renamed_filename == "series S01E10 - [BDrip] - (2022)");
     }
+    #[test]
+    fn dash_remover2(){
+        let filename = "Gangsta  S01 - 01 VOSTFR [1080p][X265][10BITS][SR-71].mkv".to_string();
+        let renamed_filename = crate::dash_remover(&filename);
+        assert!(renamed_filename == "Gangsta  S01E01 VOSTFR [1080p][X265][10BITS][SR-71].mkv");
+    }
     
     #[test]
     fn pattern_remove(){
