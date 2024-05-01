@@ -26,7 +26,8 @@ pub struct Args {
 pub fn handle_args() -> Args {
     let args: Vec<String> = env::args().collect();
     if args.len() < 2 {
-        panic!("Not enough args");
+        //panic!("Not enough args");
+        return Args { folder_path: "".to_string(), mode: Mode {append_season: None, pattern_remover: None, dash_remover: None}, is_help_mode: true};
     }
     let mut folder_path = "".to_string();
     let mut mode = Mode { append_season: None, pattern_remover: None, dash_remover: None };

@@ -1,3 +1,7 @@
+//use core::num;
+
+use core::num;
+
 pub fn append_season(filename : &String, season_nb : i32) -> String {
     let mut new_filename = filename.clone();
     let mut pos = 0;
@@ -7,7 +11,11 @@ pub fn append_season(filename : &String, season_nb : i32) -> String {
     // let mut last_char;
     while pos + 1 < filename.len() {
         if c.is_ascii_digit(){
-            let number_pos = pos;
+            let mut number_pos = pos;
+            // needed to fix strange bug where number_pos is not the pos of a number for whatever reason (see the test_for_strange_bug test)
+            if !filename.as_bytes()[number_pos].is_ascii_digit(){
+                number_pos = number_pos+1;
+            }
             let mut number : String = "".to_string();
             while c.is_ascii_digit() && pos + 1 < filename.len(){
                 number.push(c);
@@ -31,25 +39,35 @@ pub fn append_season(filename : &String, season_nb : i32) -> String {
                 }
             };
             println!("number_replacement : {}", number_replacement);
-            let mut pos_removing_number : i32 = 0;
+            println!("new_filename[{}] : {}", number_pos, new_filename.as_bytes()[number_pos]);
+            //number_pos = number_pos+1;
+            new_filename.replace_range(number_pos..number_pos+number.len(), "");
+            println!("new_filename after removing : {}", new_filename);
+            /*let mut pos_removing_number : i32 = 0;
             while pos_removing_number < (number.len()) as i32 {
                 new_filename.remove(number_pos as usize);
                 pos_removing_number = pos_removing_number+1;
                 println!("new_filename in loop : {}", new_filename);
-            }
-            let mut pos_c_number = 0;
+            }*/
+            new_filename.insert_str(number_pos, &number_replacement);
+            println!("new_filename after replacing : {}", new_filename);
+            /*let mut pos_c_number = 0;
             for c_number_replacement in number_replacement.chars() { 
                 println!("{}", c_number_replacement);
                 new_filename.insert(number_pos+pos_c_number, c_number_replacement);
                 pos_c_number = pos_c_number + 1;
-            }
+            }*/
             println!("new_filename : {}", new_filename);
             if pos + 1 > filename.len() {
                 break;
             }
             }
         } else {
-            c = iter.next().unwrap();
+            let temp = iter.next();
+            if temp.is_none(){
+                break;
+            }
+            c = temp.unwrap();
             pos = pos + 1;
         }
     }

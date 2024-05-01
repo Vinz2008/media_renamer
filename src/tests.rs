@@ -15,6 +15,13 @@ mod tests {
         assert!(renamed_filename == "series - S01E10 - [BDrip] - (2022)");
     }
     #[test]
+    fn season_append_two_number2(){
+        let filename = "series - 01 - [BDrip] - (2022)".to_string();
+        
+        let renamed_filename = crate::append_season(&filename, 1);
+        assert!(renamed_filename == "series - S01E01 - [BDrip] - (2022)");
+    }
+    #[test]
     fn dash_remover(){
         let filename = "series S01 - 10 - [BDrip] - (2022)".to_string();
         let renamed_filename = crate::dash_remover(&filename);
@@ -40,6 +47,14 @@ mod tests {
         let pattern = "x264.HP.AC3-2.0.".to_string();
         let renamed_filename = crate::remove_pattern(&filename, &pattern);
         assert!(renamed_filename == "series.(2022)");
+    }
+    #[test]
+    fn test_for_strange_bug(){
+        let filename = "Versailles no Bara (Lady Ocscar) 1979 Intégrale MULTI BluRay (1080p x265 10bit FLAC 2.0) (JG666) - 1.mkv".to_string();
+        let pattern = " 10bit FLAC 2.0".to_string();
+        let renamed_filename = crate::remove_pattern(&filename, &pattern);
+        let renamed_filename = crate::append_season(&renamed_filename, 1);
+        assert!(renamed_filename == "Versailles no Bara (Lady Ocscar) 1979 Intégrale MULTI BluRay (1080p x265) (JG666) - S01E01.mkv");
     }
 
 }
