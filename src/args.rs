@@ -12,7 +12,7 @@ pub struct DashRemoverArgs;
 
 // maybe use a vec of modes instead, but it need to be sorted first
 pub struct Mode {
-    pub append_season : Option<AppendSeasonArgs>, // default mode
+    pub append_season : Option<AppendSeasonArgs>,
     pub pattern_remover : Option<PatternRemoverArgs>,
     pub dash_remover : Option<DashRemoverArgs>,
 }
@@ -26,7 +26,6 @@ pub struct Args {
 pub fn handle_args() -> Args {
     let args: Vec<String> = env::args().collect();
     if args.len() < 2 {
-        //panic!("Not enough args");
         return Args { folder_path: "".to_string(), mode: Mode {append_season: None, pattern_remover: None, dash_remover: None}, is_help_mode: true};
     }
     let mut folder_path = "".to_string();
@@ -60,7 +59,6 @@ pub fn handle_args() -> Args {
             folder_path = arg.to_string(); 
             //println!("found folder path : {}", folder_path);
         }
-        //println!("pos : {}, args.len : {}", pos, args.len());
         if pos+1 < args.len() {
             arg = arg_iter.next().unwrap();
         }
