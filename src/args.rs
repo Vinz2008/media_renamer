@@ -36,7 +36,7 @@ pub fn handle_args() -> Args {
     let mut is_help_mode = false;
     while pos < args.len() {
         //println!("arg : {}", arg);
-        if arg == "--season-append"{
+        if arg == "--append-season"{
             arg = arg_iter.next().unwrap();
             pos = pos + 1;
             if !arg.parse::<i32>().is_ok() {
@@ -44,11 +44,11 @@ pub fn handle_args() -> Args {
             }
             let season_nb = arg.parse::<i32>().unwrap();
             mode.append_season = Some(AppendSeasonArgs { season_number: season_nb });
-        } else if arg == "--pattern-remove" {
+        } else if arg == "--remove-pattern" {
             arg = arg_iter.next().unwrap();
             pos = pos + 1;
             mode.pattern_remover = Some(PatternRemoverArgs { pattern: arg.clone() });
-        } else if arg == "--dash-remove" {
+        } else if arg == "--remove-dash" {
             mode.dash_remover = Some(DashRemoverArgs);
         } else if arg == "--help" {
             is_help_mode = true;            

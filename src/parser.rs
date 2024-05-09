@@ -1,4 +1,4 @@
-pub fn append_season(filename : &String, season_nb : i32) -> String {
+pub fn append_season(filename : &String, season_nb : i32, max_len_nb_episode : Option<usize>) -> String {
     let mut new_filename = filename.clone();
     let mut pos = 0;
     let mut iter = filename.chars();
@@ -20,7 +20,7 @@ pub fn append_season(filename : &String, season_nb : i32) -> String {
             }
             println!("digit : {}", number);
             println!("digit_number : {}", number.len());
-            if number.len() < 3 { // maybe <=
+            if number.len() < max_len_nb_episode.unwrap_or(3) { // maybe <=
             let number_replacement = if number.len() == 1 {
                 if season_nb < 10{
                     format!("S0{}E0{}", season_nb, number)

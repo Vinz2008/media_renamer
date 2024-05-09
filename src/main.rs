@@ -8,9 +8,22 @@ mod parser;
 
 use parser::{append_season, remove_pattern, dash_remover};
 
+use std::env;
+
 use crate::help::print_usage;
 
 mod help;
+
+fn get_max_len_nb_episode_env() -> Option<usize> {
+    let max_len_nb_episode_env = env::var("MAX_LEN_NB_EPISODE");
+    match max_len_nb_episode_env {
+        Err(_) => { None }
+        Ok(max_len_nb_episode_str) => {
+            let max_len_nb_episode = max_len_nb_episode_str.parse::<usize>().unwrap();
+            Some(max_len_nb_episode)
+        }
+    }
+}
 
 fn main() {
     let args = handle_args();
@@ -19,6 +32,7 @@ fn main() {
         return;
     }
     println!("{}", args.folder_path);
+    let max_len_nb_episode : Option<usize> = get_max_len_nb_episode_env();
     let paths = fs::read_dir(args.folder_path).unwrap();
     let mut files_and_renamed_files : Vec<(String, String)> = vec![];
     for path in paths {
@@ -29,7 +43,7 @@ fn main() {
             renamed_file = remove_pattern(&renamed_file, &pattern_remover.pattern);
         }
         if let Some(append_season_arg) = &args.mode.append_season {
-            renamed_file = append_season(&renamed_file, append_season_arg.season_number);
+            renamed_file = append_season(&renamed_file, append_season_arg.season_number, max_len_nb_episode);
         }
         if let Some(DashRemoverArgs) = args.mode.dash_remover {
             renamed_file = dash_remover(&renamed_file);

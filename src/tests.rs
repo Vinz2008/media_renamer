@@ -4,22 +4,29 @@ mod tests {
     fn season_append_one_number() {
         let filename = "series - 1 - [BDrip] - (2022)".to_string();
         
-        let renamed_filename = crate::append_season(&filename, 1);
+        let renamed_filename = crate::append_season(&filename, 1, None);
         assert!(renamed_filename == "series - S01E01 - [BDrip] - (2022)");
     }
     #[test]
     fn season_append_two_number(){
         let filename = "series - 10 - [BDrip] - (2022)".to_string();
         
-        let renamed_filename = crate::append_season(&filename, 1);
+        let renamed_filename = crate::append_season(&filename, 1, None);
         assert!(renamed_filename == "series - S01E10 - [BDrip] - (2022)");
     }
     #[test]
     fn season_append_two_number2(){
         let filename = "series - 01 - [BDrip] - (2022)".to_string();
         
-        let renamed_filename = crate::append_season(&filename, 1);
+        let renamed_filename = crate::append_season(&filename, 1, None);
         assert!(renamed_filename == "series - S01E01 - [BDrip] - (2022)");
+    }
+    #[test]
+    fn season_append_episode_more_than_three_nb(){
+        let filename = "Oshin (297).mp4".to_string();
+        let renamed_filename = crate::append_season(&filename, 1, Some(4));
+        println!("renamed_filename : {}", renamed_filename);
+        assert!(renamed_filename == "Oshin (S01E297).mp4");
     }
     #[test]
     fn dash_remover(){
@@ -53,8 +60,7 @@ mod tests {
         let filename = "Versailles no Bara (Lady Ocscar) 1979 Intégrale MULTI BluRay (1080p x265 10bit FLAC 2.0) (JG666) - 1.mkv".to_string();
         let pattern = " 10bit FLAC 2.0".to_string();
         let renamed_filename = crate::remove_pattern(&filename, &pattern);
-        let renamed_filename = crate::append_season(&renamed_filename, 1);
+        let renamed_filename = crate::append_season(&renamed_filename, 1, None);
         assert!(renamed_filename == "Versailles no Bara (Lady Ocscar) 1979 Intégrale MULTI BluRay (1080p x265) (JG666) - S01E01.mkv");
     }
-
 }
