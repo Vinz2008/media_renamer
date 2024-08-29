@@ -41,9 +41,10 @@ pub fn append_season(filename : &String, season_nb : i32, max_len_nb_episode : O
             println!("new_filename after removing : {}", new_filename);
             new_filename.insert_str(number_pos, &number_replacement);
             println!("new_filename after replacing : {}", new_filename);
-            if pos + 1 > filename.len() {
+            break;
+            /*if pos + 1 > filename.len() {
                 break;
-            }
+            }*/
             }
         } else {
             let temp = iter.next();
